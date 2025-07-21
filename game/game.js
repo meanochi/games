@@ -22,13 +22,13 @@ let flag=true
 userName = localStorage.getItem('loggedInUser')
 hello.textContent = userName
 home.addEventListener("click", ()=>{
-    window.location.href=`../home/home.html?action=checkLoginStatus())`
+    window.location.href=`../home/inex.html?action=checkLoginStatus())`
 })
 
 logOut.addEventListener("click",(event)=>{
     event.preventDefault()
     localStorage.setItem('loggedInUser', '')
-    window.location.href=`../home/home.html?action=checkLoginStatus())`
+    window.location.href=`../home/index.html?action=checkLoginStatus())`
 })
 console.log(userName);
 function twoOrFour(){
@@ -106,8 +106,7 @@ function IsGameOver(sqrs){
          if(score>localStorage.getItem("high_score"))
             localStorage.setItem("high_score", score)
         alert("Game Over!!🤔 Your score is:"+score)
-        //איפוס מחדש
-        start(sqrs)
+        location.reload()
     }
 }
 
@@ -243,43 +242,36 @@ function fixUp(sqrs){
     }
 }
 
-function fixDown(sqrs){
-    for(let i=0;i<4;i++){
-        let tmp=[]
-        let k=0
-        if(sqrs[0][i].textContent!==''){
-            tmp[0]=sqrs[0][i].textContent
-            k++
+// 
+function fixDown(sqrs) {
+    for (let i = 0; i < 4; i++) {
+      
+      let column = [];
+      for (let j = 0; j < 4; j++) {
+        if (sqrs[j][i].textContent !== '') {
+          column.push(Number(sqrs[j][i].textContent));
         }
-        for(let j=1;j<4;j++){
-            if (sqrs[j][i].textContent==='')
-                continue
-            if(sqrs[j][i].textContent===tmp[k-1]){
-                tmp[k-1]*=2
-                tmp[k]=-1
-                score+=tmp[k-1]
-            }
-            else{
-                tmp[k]=sqrs[j][i].textContent
-            } 
-            k++
+      }
+      for (let j = column.length - 1; j > 0; j--) {
+        if (column[j] === column[j - 1]) {
+          column[j] *= 2;
+          score += column[j]; 
+          column[j - 1] = 0; 
         }
-        let index=k-1
-        for (let j=3;j>=0;j--){
-            if(k<0){
-                sqrs[j][i].textContent=''
-            }
-            else if(tmp[index]===-1){
-                index--
-                sqrs[j][i].textContent=tmp[index]
-            }
-            else{
-                sqrs[j][i].textContent=tmp[index]
-            }
-            index--
+      }
+  
+      let mergedColumn = column.filter(num => num !== 0);
+      let index = mergedColumn.length - 1;
+      for (let j = 3; j >= 0; j--) {
+        if (index >= 0) {
+          sqrs[j][i].textContent = mergedColumn[index];
+          index--;
+        } else {
+          sqrs[j][i].textContent = '';
         }
+      }
     }
-}
+  }
 let before=[]
 function saveBefore(sqrs){
     before=[]
