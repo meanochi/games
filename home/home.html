@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games</title>
+    <script src="./home.js" defer></script>
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Game Center!</h1>
+        <div class="hello"></div>
+    </header>
+    <nav>
+        <button id="toReg">Sign Up</button>
+        <button id="toSign">Sign In</button>
+        <button id="logOut">Log Out</button>
+    </nav>
+    <main>
+        <div class="msg"></div>
+    <form class="register">
+        <h3>Let's Register!</h3>
+        <label for="f_name">Name</label>
+        <input type="text" id="f_name"  placeholder="Insert your first name">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone"  placeholder="Give us your phone number">
+        <label for="email">Email</label>
+        <input type="email" id="email"  placeholder="Email to contact">
+        <label for="password">Password</label>
+        <input type="password" id="password"  placeholder="Have a uniqe password">
+        <div class="passmsg1"></div>
+        <button type="submit" class="reg">Let's start →</button>
+    </form>
+    <form class="login">
+        <h3>Log in</h3>
+        <label for="f_name">Name</label>
+        <input type="text" id="f_name2"  placeholder="name">
+        <label for="password">Password</label>
+        <input type="password" id="password2"  placeholder="password">
+        <div class="passmsg2"></div>
+        <button type="submit" class="log">Log in</button>
+    </form>
+    <div class="games">
+        <div class="game XO"></div>
+        <div class="game g2048"><h3 class="h1"></h3>Log in First</div>
+        <div class="game snake"></div>
+        <div class="game memories"></div>
+    </div>
+</main>
+</body>
+</html>

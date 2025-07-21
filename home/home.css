@@ -1,0 +1,170 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    width: 100%;
+    height:  100%;
+    background-image: url(../img/back5.jpg);
+    background-size: cover;
+    background-position-x: center;
+}
+.h1{
+    color: white;
+}
+
+header{
+    padding-top: 2%;
+    padding-bottom: 1%;
+    font-size: 1.5rem;
+    font-family: 'Luckiest Guy';
+    background-color: rgba(0, 11, 94, 0.706);
+    height: fit-content;
+    align-content: center;
+    text-align: center;
+    color: white;
+}
+nav{
+    position: relative;
+    background-color:rgba(144, 144, 144, 0.564);
+    height: 5vh;
+    align-content: center;
+    text-align: center; 
+}
+
+main{
+    height:  100%;
+    width: 100%;
+}
+
+.register, .login{
+    font-size: 1.5rem;
+    font-family: 'Montserrat Regular';
+    gap: 5px;
+    margin: 3vh;
+    display: flex;
+    flex-direction: column;
+    width: 40vw;
+    justify-self: center;
+    background-color:rgba(82, 159, 161, 0.896);
+    padding: 3%;
+    border-radius: 20px;
+    box-shadow: 0px 0px 5px;
+    display: none;
+}
+h3{
+    font-family: 'Lobster';
+}
+button, input{
+    font-family: 'Montserrat Regular';
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 7px;
+    padding: 5px;
+}
+#toReg{
+    border-radius: 0;
+    background-color: transparent;
+}
+#toSign{
+    border-radius: 0;
+    background-color: transparent;
+}
+#logOut{
+    border-radius: 0;
+    background-color: transparent;
+}
+.games{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    height: 50vh;
+}
+.game{
+    font-size: 2rem;
+    font-family: 'Lobster';
+    color: transparent;
+    text-align: center;
+    align-content: center;
+    margin: 1.5%;
+    width: 37vh;  
+    height: 37vh; 
+    border-radius: 10px;
+    box-shadow:black 0px 0px 10px;
+
+}
+.XO:hover, .memories:hover, .snake:hover{
+    color: black;
+    background-image: url(../img/coming\ soon.jpg);
+    background-size: cover;
+    transition: all 2s;
+}
+.XO{
+    background-image: url(../img/tictactoe.png);
+    background-size: cover;  
+}
+.snake{
+    background-image: url(../img/snake.png);
+    background-size: cover;  
+}
+.memories{
+    background-image: url(../img/chess.jpg);
+    background-position-x: center;
+    background-size: cover;
+}
+.g2048{
+    background-image: url(../img/g2048.png);
+    background-size: cover;
+    color: transparent;
+    white-space: pre-line;
+}
+.g2048:hover{
+    transition: 1s;
+    color: white;
+    background-image: url(../img/2048b.png);
+}
+.passmsg1, .passmsg2{
+    color:brown;
+    font-size: 1rem;
+}
+
+.hello{
+    font-size: 2rem;
+    font-family: 'Lobster';
+    margin-top: 1%;
+}
+
+@font-face {
+    font-family: 'Lobster'; /* זה השם שתשתמש בו בהמשך הקוד */
+    src: 
+         url('../fonts/Lobster-Regular.ttf') format('truetype'); /* גיבוי: נתיב לקובץ ttf */
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap; /* חשוב מאוד! מציג טקסט בפונט זמני עד שהפונט שלך נטען */
+  }
+  
+  @font-face {
+    font-family: 'Luckiest Guy'; /* שם נוסף לשימוש בקוד */
+    src: url('../fonts/LuckiestGuy-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Montserrat Regular'; /* שם נוסף לשימוש בקוד */
+    src: url('../fonts/Montserrat-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Montserrat Bold'; /* שם נוסף לשימוש בקוד */
+    src: url('../fonts/Montserrat-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
