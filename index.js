@@ -154,7 +154,7 @@ signUp.addEventListener("click", ()=>{
 game.addEventListener("click",()=>{
     userName = localStorage.getItem('loggedInUser') 
     if (userName) {
-        window.location.href="../game/game.html?"
+        window.location.href="./game/game.html?"
         game.style.backgroundColor = 'red'
     }
     else{
