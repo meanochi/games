@@ -49,7 +49,7 @@ button, input{
 }
 
 .square{
-    opacity: 70%;
+    color: white;
     font-family: 'Luckiest Guy';
     height: 100px;
     width: 100px;

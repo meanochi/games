@@ -1,10 +1,4 @@
-//////////////////////
-//הערות:
-//1 אם אין אפשרות לזוז לכיוון שלא יגרילvvvv
-//2 אם הלוח מלא ויש להתקדם נתקעVVVV
-//3 לא קולט שמנצחvvvv
-//4 לשנות צבע לפי ערךvvvv
-////////////////////////
+
 const sqrs1=document.querySelectorAll(".r1")
 const sqrs2=document.querySelectorAll(".r2")
 const sqrs3=document.querySelectorAll(".r3")
@@ -15,20 +9,20 @@ const logOut = document.querySelector("#logOut")
 const home = document.querySelector("#home")
 const sqrs=[sqrs1,sqrs2,sqrs3,sqrs4]
 console.log(sqrs);
-let colors={0:"transparent",2:"lightgoldenrodyellow",4:"lightblue",8:"lightgray",16:"lightgreen",32:"lightpink",64:"lightsalmon",128:"lightblue",256:"lightseagreen",512:"lightslategray",1024:"lightcoral",2048:"goldenrod"}
+let colors={0:"transparent",2:"#FF3366b2",4:"#FF6600b2",8:"#FFCC00b2",16:"#33FF33b2",32:"#00CCFFb2",64:"#9933FFb2",128:"#CC33FFb2",256:"#00FFCCb2",512:"#FF9900b2",1024:"#6600FFb2",2048:"#FF0000b2"}
 let countSqrs=0
 let score=0
 let flag=true
 userName = localStorage.getItem('loggedInUser')
 hello.textContent = userName
 home.addEventListener("click", ()=>{
-    window.location.href=`../index.html?action=checkLoginStatus())`
+    window.location.href=`../home/home.html?action=checkLoginStatus())`
 })
 
 logOut.addEventListener("click",(event)=>{
     event.preventDefault()
     localStorage.setItem('loggedInUser', '')
-    window.location.href=`../index.html?action=checkLoginStatus())`
+    window.location.href=`../home/home.html?action=checkLoginStatus())`
 })
 console.log(userName);
 function twoOrFour(){
@@ -106,8 +100,23 @@ function IsGameOver(sqrs){
          if(score>localStorage.getItem("high_score"))
             localStorage.setItem("high_score", score)
         alert("Game Over!!🤔 Your score is:"+score)
-        location.reload()
+        //איפוס מחדש
+        refresh(sqrs)
+        return true
     }
+    return false
+}
+
+function refresh(sqrs){
+    score=0
+    for(let i=0;i<4;i++){
+        for(let j=0;j<4;j++){
+            sqrs[i][j].textContent=''
+            sqrs[i][j].style.backgroundColor=colors[0]
+        }
+    }
+    start(sqrs)
+    scoreDiv.textContent="Score:0"
 }
 
 function winner(sqrs){
@@ -242,36 +251,42 @@ function fixUp(sqrs){
     }
 }
 
-// 
 function fixDown(sqrs) {
-    for (let i = 0; i < 4; i++) {
-      
-      let column = [];
-      for (let j = 0; j < 4; j++) {
-        if (sqrs[j][i].textContent !== '') {
-          column.push(Number(sqrs[j][i].textContent));
+    for (let i = 0; i < 4; i++) { 
+        let tmp = [];
+        let k = 0;
+        for (let j = 0; j < 4; j++) {
+            if (sqrs[j][i].textContent !== '') {
+                tmp[k] = Number(sqrs[j][i].textContent);
+                k++;
+            }
         }
-      }
-      for (let j = column.length - 1; j > 0; j--) {
-        if (column[j] === column[j - 1]) {
-          column[j] *= 2;
-          score += column[j]; 
-          column[j - 1] = 0; 
+
+        let newTmp = [];
+        let newK = 0;
+        for (let j = tmp.length - 1; j >= 0; j--) {
+            if (newK > 0 && newTmp[newK - 1] === tmp[j]) {
+                newTmp[newK - 1] *= 2;
+                score += newTmp[newK - 1];
+            } else {
+                newTmp[newK] = tmp[j];
+                newK++;
+            }
         }
-      }
-  
-      let mergedColumn = column.filter(num => num !== 0);
-      let index = mergedColumn.length - 1;
-      for (let j = 3; j >= 0; j--) {
-        if (index >= 0) {
-          sqrs[j][i].textContent = mergedColumn[index];
-          index--;
-        } else {
-          sqrs[j][i].textContent = '';
+        newTmp.reverse();
+
+        let index = newTmp.length - 1; 
+        for (let j = 3; j >= 0; j--) { 
+            if (index >= 0) {
+                sqrs[j][i].textContent = newTmp[index];
+                index--;
+            } else {
+                sqrs[j][i].textContent = ''; 
+            }
         }
-      }
     }
-  }
+}
+
 let before=[]
 function saveBefore(sqrs){
     before=[]
@@ -312,12 +327,14 @@ document.addEventListener('keydown', function(event) {
     }
 
     winner(sqrs)
-    IsGameOver(sqrs)
-    if (hasChanged(sqrs)) {
-        randomSqr(sqrs);
+    const tmp=IsGameOver(sqrs)
+    if(tmp===false){
+        if (hasChanged(sqrs)) {
+            randomSqr(sqrs);
+        }
+        changeColor(sqrs)
+        scoreDiv.textContent="Score:"+score
     }
-    changeColor(sqrs)
-    scoreDiv.textContent="Score:"+score
   });
 
 start(sqrs)
