@@ -338,3 +338,78 @@ document.addEventListener('keydown', function(event) {
   });
 
 start(sqrs)
+
+const gameBoard = document.querySelector('.table'); // קבלת אלמנט לוח המשחק
+let startX = 0;
+let startY = 0;
+let endX = 0;
+let endY = 0;
+
+// מאזין לרגע תחילת הנגיעה
+gameBoard.addEventListener('touchstart', (event) => {
+    // מונע מהדף לזוז בזמן הנגיעה
+    event.preventDefault(); 
+    // שומר את קואורדינטות ה-X וה-Y של נקודת ההתחלה
+    startX = event.touches[0].clientX;
+    startY = event.touches[0].clientY;
+}, { passive: false });
+
+// מאזין לרגע סיום הנגיעה
+gameBoard.addEventListener('touchend', (event) => {
+    event.preventDefault();
+    // שומר את קואורדינטות ה-X וה-Y של נקודת הסיום
+    endX = event.changedTouches[0].clientX;
+    endY = event.changedTouches[0].clientY;
+
+    // קורא לפונקציה שמחשבת את כיוון ההחלקה
+    handleSwipe();
+}, { passive: false });
+
+function handleSwipe() {
+    const deltaX = endX - startX; // הפרש התנועה בציר X
+    const deltaY = endY - startY; // הפרש התנועה בציר Y
+    const minSwipeDistance = 50; // מרחק החלקה מינימלי שייחשב כתנועה (מונע תזוזות מטפיחות קלות)
+
+    // בודק אם התנועה האופקית גדולה מהאנכית
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        if (deltaX > minSwipeDistance) {
+            // החלקה ימינה
+            console.log("Swipe Right");
+            saveBefore(sqrs);
+            fixRight(sqrs);
+        } else if (deltaX < -minSwipeDistance) {
+            // החלקה שמאלה
+            console.log("Swipe Left");
+            saveBefore(sqrs);
+            fixLeft(sqrs);
+        } else {
+            return; // החלקה קצרה מדי, לא לעשות כלום
+        }
+    } 
+    // אחרת, התנועה האנכית גדולה מהאופקית
+    else {
+        if (deltaY > minSwipeDistance) {
+            // החלקה למטה
+            console.log("Swipe Down");
+            saveBefore(sqrs);
+            fixDown(sqrs);
+        } else if (deltaY < -minSwipeDistance) {
+            // החלקה למעלה
+            console.log("Swipe Up");
+            saveBefore(sqrs);
+            fixUp(sqrs);
+        } else {
+            return; // החלקה קצרה מדי, לא לעשות כלום
+        }
+    }
+
+    // --- קוד שמשותף לכל התנועות ---
+    // הקוד הזה מועתק מהפונקציה של המקלדת
+    winner(sqrs);
+    IsGameOver(sqrs);
+    if (hasChanged(sqrs)) {
+        randomSqr(sqrs);
+    }
+    changeColor(sqrs);
+    scoreDiv.textContent = "Score:" + score;
+}
