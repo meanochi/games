@@ -16,13 +16,13 @@ let flag=true
 userName = localStorage.getItem('loggedInUser')
 hello.textContent = userName
 home.addEventListener("click", ()=>{
-    window.location.href=`../home/home.html?action=checkLoginStatus())`
+    window.location.href=`../index.html?action=checkLoginStatus())`
 })
 
 logOut.addEventListener("click",(event)=>{
     event.preventDefault()
     localStorage.setItem('loggedInUser', '')
-    window.location.href=`../home/home.html?action=checkLoginStatus())`
+    window.location.href=`../index.html?action=checkLoginStatus())`
 })
 console.log(userName);
 function twoOrFour(){
